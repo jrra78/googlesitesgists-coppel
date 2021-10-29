@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Google Sites Gist</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" charset="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://drive.google.com/thumbnail?id=19IyzxC3Z4OgjTqQRKqrXTny6I7CpDoCJ">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- Popper and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
+    <!-- plotly JS -->
+    <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script> 
+    <!-- styling -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <style>
+        /* Show it is fixed to the top */
+        body {
+        min-height: 7.5rem;
+        padding-top: 4.5rem;
+        }
+    </style>
+    <!-- Custom libraries -->
+    <script src="https://cdn.jsdelivr.net/gh/jrra78/bibliothecas@main/dataMgmt/v0_0_1/dataMgmt.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jrra78/bibliothecas@main/coppel/cashFlowLibs/domMgmt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jrra78/bibliothecas@main/coppel/cashFlowLibs/repMgmt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jrra78/bibliothecas@main/coppel/cashFlowLibs/plotting.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Custom libraries -->
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Pago a Proveedores</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" 
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link disabled bg-dark" href="#appResults" class="btn" onclick="showGeneralData()">General</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled bg-dark" href="#appResults" class="btn" onclick="showFurnitureData()">Muebles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled bg-dark" href="#appResults" class="btn" onclick="showClothingData()">Ropa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled bg-dark" href="#appResults" class="btn" onclick="showShoesData()">Calzado</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled bg-dark" href="#appResults" class="btn" onclick="showCashFlowData()">Caja</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active bg-dark" href="#dataDownloads" class="btn" onclick="showDataDownloads()">Descargas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main" class="container">
+
+        <div id="appLanding" class="d-block bg-light pt-1 rounded" style="width:100%;">
+            <div class="d-grid">
+                <h3>Actualiza datos</h3>
+                <p>Para visualizar los reportes graficos debe de actualizar la informacion desde el datamart.</p>
+                <button type="button" class="btn btn-primary" onclick="getData()">Actualizar informacion</button>
+                <br><br>
+            </div> 
+        </div>
+
+        <div id="appInProgress" class="d-none bg-light p-1 rounded" style="width:100%;">
+            <div class="container text-center" style="width:100%;" >    
+                
+                
+                <img class ="mx-auto d-block" src="https://cdn.jsdelivr.net/gh/jrra78/images@main/gif/bar.gif">
+                <h5>Cargando datos...</h5>
+                <br><br>
+            </div>
+            
+        </div>
+
+        <div id="appResults" class="d-none bg-light pt-1 rounded" style="width:100%;"></div>
+
+        <div id="dataDownloads" class="d-none bg-light pt-1 rounded" style="width:100%;">
+            <img src="https://cdn.jsdelivr.net/gh/jrra78/images@main/svg/GoogleSheets.svg" style="display: inline;">
+            <h3 style="display: inline;">&nbsp;Descargas disponibles</h3>
+            <br><br>
+            <a href="https://docs.google.com/spreadsheets/d/126WI_A6VkaMgXJowd25Yn872kN8wfJqDvscjyqbX6dQ/edit?usp=sharing" 
+            target="_blank" download="Caja">
+                Caja: ingresos y egresos - Calendario ISO
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1pFznSZAkp6HEpHjINcl-AfwagQImWOn0xBYHaEA3p1k/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Recepcion: compras muebles - Calendario Gregoriano
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1jbvDf9SVmD6r8nXK6JVTkFlLkJLyJktoujV4D8ijNxU/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Recepcion: compras muebles - Calendario ISO
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/14idsljYWVcKnYsaGJvcGLezSo8XU0AVxepFmNjTDf08/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Recepcion: compras ropa - Calendario Gregoriano
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/14idsljYWVcKnYsaGJvcGLezSo8XU0AVxepFmNjTDf08/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Recepcion: compras ropa - Calendario ISO
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1ptW0r9WfGv1u9K7r-NM_2EwDmpkCvTTgzy4QtEPuWPM/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Recepcion: compras calzado - Calendario Gregoriano
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1HQR_AAAe29SMTJxzwHOQLNunaS9d-hIPcJbfaSMepdk/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Recepcion: compras calzado - Calendario ISO
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1ffipO9QdXw4bLxtix7AyjoC9Jz2KUj1N_JD3ETpKuK4/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Pagos: compras muebles - Calendario Gregoriano
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1hePYsy73U-uGIC-WaJHE0vG5m6bnjAwQjbC_1prnUjE/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Pagos: compras muebles - Calendario ISO
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1cQWTymyVACgk_UTPq-3J63zBZeDUJWAbxplDBmXdHfE/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Pagos: compras ropa - Calendario Gregoriano
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1uZFOl96Xf-nEc8Uah0ugfbd7Rn9dGA0EgoXgIT-KCSo/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Pagos: compras ropa - Calendario ISO
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1mzI6Skh960O2bNK2rKQGO_sk13uE1Du_UDST7VVQaiY/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Pagos: compras calzado - Calendario Gregoriano
+            </a><br><br>
+            <a href="https://docs.google.com/spreadsheets/d/1BGu7BG1GOyWcHx-Pw2EFKn_TnJPjJ62RqKswFyU3CvY/edit?usp=sharing" 
+            target="_blank" download="Caja">
+            Pagos: compras calzado - Calendario ISO
+            </a><br>
+        </div>
+        
+    </main>
+
+</body>
+
+<!-- Application -->
+
+<script src="https://cdn.jsdelivr.net/gh/jrra78/bibliothecas@main/coppel/cashFlowLibs/script.min.js"></script>
+
+</html>
+
